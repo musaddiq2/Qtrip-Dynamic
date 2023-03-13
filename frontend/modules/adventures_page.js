@@ -5,6 +5,9 @@ import config from "../conf/index.js";
 function getCityFromURL(search) {
   // TODO: MODULE_ADVENTURES
   // 1. Extract the city id from the URL's Query Param and return it
+  const urlParams = new URLSearchParams(search);
+  const city = urlParams.get("city");
+  return city;
 
 }
 
@@ -12,6 +15,14 @@ function getCityFromURL(search) {
 async function fetchAdventures(city) {
   // TODO: MODULE_ADVENTURES
   // 1. Fetch adventures using the Backend API and return the data
+  try {
+    let res = await fetch(config.backendEndpoint+`/adventures?city=${city}`);
+    let adventures = await res.json();
+   return adventures;
+  } catch {
+   
+    return null;
+  }
 
 }
 
@@ -19,6 +30,31 @@ async function fetchAdventures(city) {
 function addAdventureToDOM(adventures) {
   // TODO: MODULE_ADVENTURES
   // 1. Populate the Adventure Cards and insert those details into the DOM
+  adventures.forEach(key => {
+    let ele = document.createElement("div");
+    ele.className="col-6 col-lg-3 mb-4";
+    ele.innerHTML=`
+    <a href="detail/?adventure=${key.id}" id="${key.id}">
+    <div class="activity-card">
+     <div class="category-banner">${key.category}</div>
+      <img class="img-responsive" src="${key.image}" id="${key.id}" />
+      </div>
+      <div class="activity-card-text text-md-center w-100 mt-3">
+        <div class="d-block d-md-flex justify-content-between flex-wrap pl-3 pr-3">
+          <h6 class="text-left">${key.name}</h6>
+          <p>${key.costPerHead}</p>
+          </div>
+          <div class="d-block d-md-flex justify-content-between flex-wrap pl-3 pr-3">
+          <h6 class="text-left">Duration</h6>
+          <p>${key.duration}</p>
+          </div>
+        
+     
+    </div>
+  </a>`;
+    document.getElementById("data").appendChild(ele);
+  });
+
 
 }
 
