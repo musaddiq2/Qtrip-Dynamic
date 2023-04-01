@@ -56,9 +56,9 @@ function addAdventureToDOM(adventures) {
 function filterByDuration(list, low, high) {
   // TODO: MODULE_FILTERS
   // 1. Filter adventures based on Duration and return filtered list
-  console.log("filterByDuration=", list);
+  console.log("filterByDuration=",list);
   let bigCity = [];
-  for (let i = 0; i <= list.length; i++) {
+  for (let i = 0; i < list.length; i++) {
     if (list[i].duration >= low && list[i].duration <= high) {
       bigCity.push(list[i]);
     }
@@ -71,11 +71,11 @@ function filterByDuration(list, low, high) {
 function filterByCategory(list, categoryList) {
   // TODO: MODULE_FILTERS
   // 1. Filter adventures based on their Category and return filtered list
-  console.log("filterByCategory=", list);
+  console.log("filterByCategory=",list);
   let bigCity = [];
-  for (let i = 0; i <= list.length; i++) {
-    for (let j = 0; j <= categoryList.length; j++) {
-      if (list[i].category == categoryList.length[j]) {
+  for (let i = 0; i < list.length; i++) {
+    for (let j = 0; j < categoryList.length; j++) {
+      if (list[i].category == categoryList[j]) {
         bigCity.push(list[i]);
       }
     }
@@ -94,26 +94,28 @@ function filterFunction(list, filters) {
   // TODO: MODULE_FILTERS
   // 1. Handle the 3 cases detailed in the comments above and return the filtered list of adventures
   // 2. Depending on which filters are needed, invoke the filterByDuration() and/or filterByCategory() methods
-
+ 
   let varr = filters.duration;
   let result = varr.split("-");
   const low = result[0];
   const high = result[1];
   let filterList = [];
   if (filters["duration"] && filters["category"].length > 0) {
-    (filterList = filterByCategory(list, filters.category)),
-      (filterList = filterByDuration(filterList, low, high));
-    console.log("filterFunction", filterList);
+    filterList = filterByCategory(list, filters.category),
+      filterList = filterByDuration(filterList, low, high);
+      console.log("filterFunction",filterList);
+
   } else if (filters["category"].length > 0) {
     filterList = filterByCategory(list, filters.category);
-    console.log("filterFunction", filterList);
+    console.log("filterFunction",filterList);
+
   } else if (filters["duration"]) {
     filterList = filterByDuration(filterList, low, high);
-    console.log("filterFunction", filterList);
+    console.log("filterFunction",filterList);
   } else {
     filterList = list;
   }
-
+ 
   // Place holder for functionality to work in the Stubs
   return filterList;
 }
@@ -144,18 +146,15 @@ function getFiltersFromLocalStorage() {
 function generateFilterPillsAndUpdateDOM(filters) {
   // TODO: MODULE_FILTERS
   // 1. Use the filters given as input, update the Duration Filter value and Generate Category Pills
-  console.log("generateFilterPillsAndUpdateDOM", filters);
-  if (Array.isArray(filters.category)) {
-    filters.category.forEach((Element) => {
-      let ele = document.createElement("div");
-      ele.className = "category-filter";
-      ele.innerHTML = `
-      <span class="border border-warning">${Element}</span>;`;
-      let divRolEle = document.getElementById("category-list");
-      divRolEle.append(ele);
-    });
-  }
-
+  console.log("generateFilterPillsAndUpdateDOM",filters);
+  filters.category.forEach((Element) => {
+    let ele = document.createElement("div");
+    ele.className = "category-filter";
+    ele.innerHTML = `
+  <span class="border border-warning">${Element}</span>;`;
+    let divRolEle = document.getElementById("category-list");
+    divRolEle.append(ele);
+  });
 }
 export {
   getCityFromURL,
