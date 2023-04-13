@@ -57,14 +57,15 @@ function filterByDuration(list, low, high) {
   // TODO: MODULE_FILTERS
   // 1. Filter adventures based on Duration and return filtered list
   console.log("filterByDuration=",list);
-  let bigCity = [];
-  for (let i = 0; i < list.length; i++) {
-    if (list[i].duration >= low && list[i].duration <= high) {
-      bigCity.push(list[i]);
-    }
-  }
+  // let bigCity = [];
+  // for (let i = 0; i < list.length; i++) {
+  //   if (list[i].duration > low && list[i].duration <= high) {
+  //     bigCity.push(list[i]);
+  //   }
+  // }
 
-  return bigCity;
+  // return bigCity;
+  return list.filter(adventure =>adventure.duration > low && adventure.duration <= high );
 }
 
 //Implementation of filtering by category which takes in a list of adventures, list of categories to be filtered upon and returns a filtered list of adventures.
