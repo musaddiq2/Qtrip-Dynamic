@@ -87,9 +87,9 @@ describe("Adventure Detail Page Tests", function () {
     expect(document.getElementById("adventure-subtitle").innerHTML).toBe(
       adventure.subtitle
     );
-    // expect(document.getElementsByClassName("activity-card-image").length).toBe(
-    //   adventure.images.length
-    // );
+    expect(document.getElementsByClassName("activity-card-image").length).toBe(
+      adventure.images.length
+    );
   });
 
   it("Check if bootstrap gallery is working", function () {

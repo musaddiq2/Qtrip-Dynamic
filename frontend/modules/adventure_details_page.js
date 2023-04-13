@@ -27,15 +27,17 @@ async function fetchAdventureDetails(adventureId) {
 }
 
 //Implementation of DOM manipulation to add adventure details to DOM
-function addAdventureDetailsToDOM(adventure) {
+function addAdventureDetailsToDOM(adventure, images) {
   // TODO: MODULE_ADVENTURE_DETAILS
   // 1. Add the details of the adventure to the HTML DOM
   document.getElementById("adventure-name").innerHTML = adventure.name;
   document.getElementById("adventure-subtitle").innerHTML = adventure.subtitle;
   document.getElementById("adventure-content").innerHTML = adventure.content;
   //document.getElementsByClassName("activity-card-image").length = adventure.images.length;
-
-
+  let img = document.querySelector("#photo-gallery")
+  adventure.images.forEach((elemnet) => {
+    img.innerHTML += `<img src="${elemnet}" alt="..." class="activity-card-image pb-3 pb-md-0" />`;
+  });
 }
 
 //Implementation of bootstrap gallery component
@@ -59,7 +61,7 @@ function addBootstrapPhotoGallery(images) {
     const carouselItemele = document.createElement("div");
     const activeClass = imageIndex === 0 ? "active" : "";
     carouselItemele.className = `carousel-item ${activeClass}`;
-    carouselItemele.innerHTML = `<img src="${image}" alt="..." class="activity-card-image pb-3 pb-md-0" />`;
+     carouselItemele.innerHTML = `<img src="${image}" alt="..." class="activity-card-image pb-3 pb-md-0" />`;
     document.getElementById("carousel-inner").append(carouselItemele);
 
     const indicators = `<button
@@ -70,7 +72,6 @@ function addBootstrapPhotoGallery(images) {
   aria-current="true" 
   aria-label="Slide ${imageIndex + 1}"></button>`;
     document.getElementById("carousel-indicators").innerHTML += indicators;
-   
   });
 }
 
