@@ -30,7 +30,6 @@ async function fetchCities() {
 function addCityToDOM(id, city, description, image) {
   // TODO: MODULE_CITIES
   // 1. Populate the City details and insert those details into the DOM
-  let rowData = document.getElementById("data");
   let colData = document.createElement("div");
   colData.className = "col-12 col-sm-6 col-lg-3 mb-4";
   colData.innerHTML = `
@@ -47,5 +46,3 @@ function addCityToDOM(id, city, description, image) {
 </a>`;
   rowData.append(colData);
 }
-
-export { init, fetchCities, addCityToDOM };

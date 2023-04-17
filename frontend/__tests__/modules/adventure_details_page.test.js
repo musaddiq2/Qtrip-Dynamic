@@ -112,7 +112,6 @@ describe("Adventure Detail Page Tests", function () {
     expect(document.getElementsByClassName("carousel slide").length).toBe(1);
   });
 
-
   it("Check if conditional rendering is working", function () {
     let adventure = {
       id: "6298356896",
@@ -273,5 +272,4 @@ describe("Adventure Detail Page Tests", function () {
     );
 
   });
-
 });
