@@ -5,18 +5,15 @@ async function fetchReservations() {
   // TODO: MODULE_RESERVATIONS
   // 1. Fetch Reservations by invoking the REST API and return them
   try {
-    const result = await fetch(config.backendEndpoint+"/reservation/");
+    const result = await fetch(config.backendEndpoint + "/reservations/");
     const data = await result.json();
     return data;
-    
+    console.log(data);
   } catch (error) {
     return null;
-    
   }
 
-
   // Place holder for functionality to work in the Stubs
-
 }
 
 //Function to add reservations to the table. Also; in case of no reservations, display the no-reservation-banner, else hide it.
@@ -35,29 +32,37 @@ function addReservationToTable(reservations) {
     2. The booking time should appear in a format like 4 November 2020, 9:32:31 pm
   */
 
-if (reservations.length>0) {
-  document.getElementById("no-reservation-banner").style.display="none";
-  document.getElementById("reservation-table-parent").style.display="block";
-  
-  
-} else {
-  document.getElementById("no-reservation-banner").style.display="block";
-  document.getElementById("reservation-table-parent").style.display="none";
-  
-}
+  if (reservations.length > 0) {
+    document.getElementById("no-reservation-banner").style.display = "none";
+    document.getElementById("reservation-table-parent").style.display = "block";
+  } else {
+    document.getElementById("no-reservation-banner").style.display = "block";
+    document.getElementById("reservation-table-parent").style.display = "none";
+  }
 
-reservations.map((key,index)=>
-{ let ele = document.createElement("tr");
-  ele.innerHTML=`<th class="scope>${key.id}</th>
+  reservations.map((key, index) => {
+    var date = new Date(reservations[index].date);
+    var time = new Date(reservations[index].time);
+    var month = time.toLocaleString(undefined, { month: "long" });
+    var day = time.getDate();
+    var year = time.getFullYear();
+    var booktime = time.toLocaleString("en-IN").split(" ");
+
+    let ele = document.createElement("tr");
+    ele.innerHTML = `<th scope="row">${key.id}</th>
   <td>${key.name}</td>
   <td>${key.adventureName}</td>
   <td>${key.person}</td>
-  <td>${key.id}</td>`;
-  document.getElementById("reservation-table").append(ele);
-
-
-})
-
+  <td>${new Date(key.date).toLocaleDateString("en-IN")}</td>
+  <td>${key.price}</td>
+  <td class="booktime">${day} ${month} ${year}, ${booktime[1]} ${booktime[2]}</td>
+  <td><div class="reservation-visit-button" id=${
+    key.id
+  }><a href="../pages/adventures/detail/?adventure=${
+      key.adventure
+    }"><a/>Visit Adventure</div></td>`;
+    document.getElementById("reservation-table").append(ele);
+  });
 }
 
 export { fetchReservations, addReservationToTable };
