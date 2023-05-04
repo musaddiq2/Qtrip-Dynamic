@@ -44,5 +44,7 @@ function addCityToDOM(id, city, description, image) {
     </div>
   </div>
 </a>`;
-  rowData.append(colData);
+ let rowData = document.getElementById("data");
+rowData.append(colData);
 }
+export {init,fetchCities,addCityToDOM};
